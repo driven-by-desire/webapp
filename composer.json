@@ -1,0 +1,27 @@
+{
+    "name": "driven-by-desire/webapp",
+    "description": "A custom php webapp for technical coding round",
+    "keywords": [
+        "custom php",
+        "rest",
+        "api",
+        "scaling"
+    ],
+    "homepage": "https://github.com/driven-by-desire/webapp",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sanjeev Sarkar",
+            "email": "mail@sanjeevsarkar.com",
+            "homepage": "http://www.sanjeevsarkar.com/"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^2.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "WebApp\\": "app/"
+        }
+    }
+}
