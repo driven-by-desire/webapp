@@ -18,9 +18,10 @@ class UserController extends BaseController
     public function process(\WebApp\Service\RequestService $request){
         //print_r($request);
         $response = new \WebApp\Service\ResponseService();
-
+        $repository = new \WebApp\Model\UserModel();
         switch($request->getRequestMethod()){
             case 'GET':
+                $_data = $repository->getUsers();
                 return $response->getResponse();
             case 'POST':
                 return 1;

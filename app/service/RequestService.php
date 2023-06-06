@@ -7,7 +7,7 @@ class RequestService
     private $request;
     private $args = array();
 
-    public function  __construct() {
+    public function  __construct(){
         //print_r($_SERVER); die();
         //$this->request['header']            = $_SERVER            ;
         $this->request['SERVER_PROTOCOL']   = $_SERVER['SERVER_PROTOCOL']   ;

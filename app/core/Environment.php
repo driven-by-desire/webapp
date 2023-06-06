@@ -11,26 +11,27 @@ class Environment
     }
 
     public static function getEnv($arg='') {
-        if(!isset(self::$env)) {
-            self::$env = new Environment();
+        switch ($arg){
+            case 'DB':
+                return self::getDBEnv();
+            default:
+                return self::$env;
         }
-        if($arg){
-            if(isset(self::$env[$arg])){
-                return self::$env[$arg];
-            }else{
-                # WRONG ENV Exception
-                return FALSE;
-            }
-        }else{
-            return NULL;
-        }
-        //return ($arg && isset(self::$env[$arg]))? self::$env[$arg] : self::$env;
     }
 
     public static function setEnv($_data){
         // self::$env = implode(', ', $_data);
         //self::$env = array_values($_data);
         self::$env = $_data;
+    }
+
+    public static function getDBEnv() {
+        $_returnData['host'] = self::$env['DB_HOST'];
+        $_returnData['port'] = self::$env['DB_PORT'];
+        $_returnData['database'] = self::$env['DB_DATABASE'];
+        $_returnData['username'] = self::$env['DB_USERNAME'];
+        $_returnData['password'] = self::$env['DB_PASSWORD'];
+        return $_returnData;
     }
 
     /*

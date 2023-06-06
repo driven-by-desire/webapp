@@ -17,6 +17,7 @@ $dotenv->load();
 # Step 1 : Set/Get Environment Variables
 # superglobal keys can get modified, should do the same in load() function of dotenv
 \WebApp\Core\Environment::setEnv($_ENV);
+
 # now can fetch any env from the singleton class
 // $_app_url = Environment::getEnv('APPURL');
 // var_dump($_app_url);
