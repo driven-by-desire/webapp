@@ -12,6 +12,10 @@ class BaseController
     }
 
     public function getController($_controller){
-        echo 'ABC---'.$_controller;
+        //echo 'ABC---'.$_controller;
+    }
+
+    public function test(){
+        //echo 'ABC--- TEST';
     }
 }

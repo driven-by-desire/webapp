@@ -14,4 +14,22 @@ class UserController extends BaseController
     public function test(){
         echo 'UserTTT';
     }
+
+    public function process(\WebApp\Service\RequestService $request){
+        //print_r($request);
+        $response = new \WebApp\Service\ResponseService();
+
+        switch($request->getRequestMethod()){
+            case 'GET':
+                return $response->getResponse();
+            case 'POST':
+                return 1;
+            case 'PUT':
+                return 1;
+            case 'DELETE':
+                return 1;
+            default:
+                return 0;
+        }
+    }
 }

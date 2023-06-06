@@ -23,16 +23,23 @@ $dotenv->load();
 
 # Step 2 : Get Controller for the Route
 $request = new \WebApp\Service\RequestService();
-//var_dump($request); 
+//print_r($request->getRequest());
+//die();
 
 # Step 3 : Get Routes
 //$controller = "\WebApp\Controller\";
 $_controller = \WebApp\Helper\Route::getController(); 
 $_controller = str_replace('"', '', addslashes('"WebApp"Controller"')).$_controller;
+if(!class_exists($_controller)){
+    echo \WebApp\Helper\Route::noController();
+    die();
+}
+
 $controller = new $_controller($request);
 
 # Step 4 : In controller, get request header and response
 //$test = new BaseController();
 //$test = new \WebApp\Controller\BaseController();
-var_dump($controller->test());
+$res = $controller->process($request);
+var_dump($res);
 ?>

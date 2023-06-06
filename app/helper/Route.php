@@ -18,6 +18,10 @@ class Route
         unset($uri[0]); unset($uri[1]); unset($uri[2]); 
         self::$args = $uri;
 
-        return ucwords(self::$controller).'Controller';
+        return ((self::$controller))? ucwords(self::$controller).'Controller' : 'BaseController';
+    }
+
+    public static function noController(){
+        return 'Error : Wrong Controller';
     }
 }
