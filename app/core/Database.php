@@ -8,7 +8,7 @@ class Database
 
     public final function  __construct() {
         self::$db = $this->connect();
-        echo __CLASS__ . " initializes only once\n";
+        echo __CLASS__ . " initializes only once <br>";
     }
 
     public static function connect(){

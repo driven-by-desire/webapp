@@ -22,7 +22,7 @@ class UserController extends BaseController
         switch($request->getRequestMethod()){
             case 'GET':
                 $_data = $repository->getUsers();
-                return $response->getResponse();
+                return $response->getResponse($_data);
             case 'POST':
                 return 1;
             case 'PUT':

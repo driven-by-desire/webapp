@@ -15,6 +15,6 @@ class UserModel extends BaseModel
     }
 
     public function getUsers(){
-        echo 'User List Here';
+        return 'User List Here';
     }
 }

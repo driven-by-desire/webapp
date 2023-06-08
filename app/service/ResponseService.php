@@ -10,14 +10,13 @@ class ResponseService
     
     }
 
-    public function getResponse(){
-        $this->response = (object) array('response_code'=>200, 'response_msg'=>'OK', 'title'=>'USER_FETCH', 'message'=>'User details fetched successfully.');
+    public function getResponse($_data=''){
 
-        // $this->response->response_code = 200;
-        // $this->response->response_msg = 'OK';
-        // $this->response->title = 'USER_FETCH';
-        // $this->response->message = 'User details fetched successfully.';
-
+        $_resp = array('response_code'=>200, 'response_msg'=>'OK', 'title'=>'USER_FETCH', 'message'=>'User details fetched successfully.');
+        if($_data)
+            $_resp['data'] = $_data;
+        $this->response = (object) $_resp;
         return json_encode($this->response);
     }
+
 }
