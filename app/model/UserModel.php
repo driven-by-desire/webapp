@@ -13,4 +13,8 @@ class UserModel extends BaseModel
     public function test(){
         echo 'User-Model';
     }
+
+    public function getUsers(){
+        echo 'User List Here';
+    }
 }
