@@ -21,9 +21,13 @@ class RequestService
         //$this->request['HTTP_COOKIE']       = $_SERVER['HTTP_COOKIE']       ;
         $this->request['REMOTE_ADDR']       = $_SERVER['REMOTE_ADDR']       ;
         $this->request['REQUEST_SCHEME']    = $_SERVER['REQUEST_SCHEME']    ;
+        $this->getRequest();
     }
 
     public function getRequest(){
+        if($this->request['REQUEST_METHOD'] == 'POST'){
+            $this->request['_data'] = $_POST;
+        }
         return $this->request;
     }
 

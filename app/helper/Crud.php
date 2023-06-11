@@ -14,16 +14,12 @@ class Crud
         //var_dump($this->db); die();  
     }
 
-    public function fetchAll($_tablename){
-        $_qry = "SELECT * FROM ".$_tablename;
-        //echo $_qry; die();
-        //var_dump($this->db); die();  
+    public function fetchAll($_tablename, $_cols=array()){
+        $_col = (count($_cols))? implode(', ', $_cols) : '*';
+        $_qry = "SELECT ".$_col." FROM ".$_tablename;
         $_st = $this->db->query($_qry);
         $_st->execute();
-
-        //print("Fetch all of the remaining rows in the result set:\n");
         $result = $_st->fetchAll(\PDO::FETCH_ASSOC);
-        //var_dump($result); die(); 
         return $result;
     }
 }

@@ -27,7 +27,8 @@ class UserController extends BaseController
                 $_data  = $repository->getUsers();
                 return $response->getResponse($_data);
             case 'POST':
-                return 1;
+                $_msg  = $repository->createUser($request);
+                return $response->getResponse();
             case 'PUT':
                 return 1;
             case 'DELETE':

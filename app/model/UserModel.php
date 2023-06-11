@@ -14,10 +14,15 @@ class UserModel extends BaseModel
     }
 
     public function getUsers(){
-        // //var_dump($this->db); die();
-         //var_dump($this->model->crud); die();
-        // $crud = new Crud($this->db);
-        $_data = $this->model->fetchAll('users');
+
+        $_data = $this->model->fetchAll('users', array('userid', 'username'));
+        return $_data;
+    }
+
+    public function createUser($_data){
+        
+        //$_data = $this->model->fetchAll('users', array('userid', 'username'));
+        //var_dump($_data); die();
         return $_data;
     }
 }

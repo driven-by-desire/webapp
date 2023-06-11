@@ -7,8 +7,7 @@ class Database
     private static $db;
 
     public final function  __construct() {
-        // /self::$db = self::connect();
-        //var_dump(self::$db); die();
+        self::$db = self::connect();
     }
 
     public static function connect(){
@@ -20,7 +19,6 @@ class Database
         self::$db = false;
         try {
             $conn_str = "mysql:host=".$_config['host'].";dbname=".$_config['database'];
-            //echo $conn_str; die();
             self::$db = new PDO($conn_str, $_config['username'], $_config['password']);
             //echo __CLASS__ . " initializes only once <br>";
         } catch(PDOException $e) { 

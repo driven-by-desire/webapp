@@ -42,5 +42,5 @@ $controller = new $_controller($request);
 //$test = new BaseController();
 //$test = new \WebApp\Controller\BaseController();
 $res = $controller->process($request);
-var_dump($res);
+echo $res;
 ?>
