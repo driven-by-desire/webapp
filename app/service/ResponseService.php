@@ -22,7 +22,6 @@ class ResponseService
         return json_encode($this->response);
     }
  
-
     private function getHTTPresp($_code){
         $http = array(
             "100" => "Continue",
