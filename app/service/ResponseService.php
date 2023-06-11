@@ -69,7 +69,7 @@ class ResponseService
         );
 
         $http_title = array(
-            "1" => "Informational",
+            "1" => "Information",
             "2" => "Successful",
             "3" => "Redirection",
             "4" => "Client Error",
@@ -78,8 +78,8 @@ class ResponseService
 
         //echo substr($_code, 0, 1); die();
         $_out['response_http_code'] = $_code;
-        $_out['response_http_msg'] = $http[$_code];
         $_out['response_http_title'] = $http_title[substr($_code, 0, 1)];
+        $_out['response_http_msg'] = $http[$_code];
 
         return $_out;
     }
