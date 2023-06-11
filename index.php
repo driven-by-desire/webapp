@@ -1,46 +1,36 @@
 <?php
+/** Autoload Namespaces and ENV Files */
 require 'vendor/autoload.php';
-//$loader = new \Composer\Autoload\ClassLoader();
-//$loader->addPsr4('Controller\\', __DIR__ . '/psr4/control');
-
-//$loader->register();
 
 use Dotenv\Dotenv;
-//use WebApp\Core\Environment;
-//use WebApp\Helper\Route;
-//use WebApp\Service\RequestService;
-//use WebApp\Controller\BaseController;
 
-$dotenv = new DotEnv(__DIR__, '.conf');
+/** Load env file */
+# future changes : autoload in Core/Environment Static Class for ease of access rather than $_ENV superglobal
+$dotenv = new DotEnv(__DIR__);
 $dotenv->load();
 
-# Step 1 : Set/Get Environment Variables
+/** Step 1 : Set/Get Environment Variables */
 # superglobal keys can get modified, should do the same in load() function of dotenv
 \WebApp\Core\Environment::setEnv($_ENV);
 
-# now can fetch any env from the singleton class
-// $_app_url = Environment::getEnv('APPURL');
-// var_dump($_app_url);
-
-# Step 2 : Get Controller for the Route
+/** Step 2 : Create Request Object for every request (header, form-data) */
 $request = new \WebApp\Service\RequestService();
-//print_r($request->getRequest());
-//die();
 
-# Step 3 : Get Routes
-//$controller = "\WebApp\Controller\";
+/** Step 3 : Get Routes for the URI based following RESTful architecture */
 $_controller = \WebApp\Helper\Route::getController(); 
+# future changes : change hardcode with appropriate function
 $_controller = str_replace('"', '', addslashes('"WebApp"Controller"')).$_controller;
 if(!class_exists($_controller)){
+    # future changes : use Response Class Object to show the Error
     echo \WebApp\Helper\Route::noController();
     die();
 }
 
+/** Step 5 : Initialize Controller Class as per URI request  */
 $controller = new $_controller($request);
 
-# Step 4 : In controller, get request header and response
-//$test = new BaseController();
-//$test = new \WebApp\Controller\BaseController();
+/** Step 6 : process request per MVC architechture with Request object and return as per Response class */
 $res = $controller->process($request);
+/** Print the JSON response */
 echo $res;
 ?>
