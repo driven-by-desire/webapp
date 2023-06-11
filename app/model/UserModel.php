@@ -1,10 +1,9 @@
 <?php
 
 namespace WebApp\Model;
-
+use WebApp\Helper\Crud;
 class UserModel extends BaseModel
 {
-    private $model;
 
     public function  __construct() {
         parent::__construct();
@@ -15,6 +14,10 @@ class UserModel extends BaseModel
     }
 
     public function getUsers(){
-        return 'User List Here';
+        // //var_dump($this->db); die();
+         //var_dump($this->model->crud); die();
+        // $crud = new Crud($this->db);
+        $_data = $this->model->fetchAll('users');
+        return $_data;
     }
 }

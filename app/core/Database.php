@@ -7,25 +7,30 @@ class Database
     private static $db;
 
     public final function  __construct() {
-        self::$db = $this->connect();
-        echo __CLASS__ . " initializes only once <br>";
+        // /self::$db = self::connect();
+        //var_dump(self::$db); die();
     }
 
     public static function connect(){
         //get environment variables
-        // echo 'Get Variables';
-        $_data = \WebApp\Core\Environment::getEnv('DB');
-        // var_dump($_data);
-        // die();
-
+        $_config = \WebApp\Core\Environment::getEnv('DB');
         if (!is_null(self::$db)) {
             return self::$db;
         }
         self::$db = false;
         try {
-            $conn_str = "mysql:host=".$_data['host'].";dbname=".$_data['database'];
-            self::$db = new PDO($conn_str, $_data['username'], $_data['password']);
-        } catch(PDOException $e) { echo $e->getMessage(); }
-        return self::$db;
+            $conn_str = "mysql:host=".$_config['host'].";dbname=".$_config['database'];
+            //echo $conn_str; die();
+            self::$db = new PDO($conn_str, $_config['username'], $_config['password']);
+            //echo __CLASS__ . " initializes only once <br>";
+        } catch(PDOException $e) { 
+            print "Error!: " . $e->getMessage() . "<br/>";
+            die(); 
+        }
+        return (self::$db)? self::$db : null;
+    }
+
+    public static function getDB(){
+        return self::connect();
     }
 }

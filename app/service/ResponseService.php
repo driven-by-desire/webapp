@@ -6,7 +6,7 @@ class ResponseService
 {
     private $response;
 
-    public function  __construct() {
+    public function  __construct(){
     
     }
 

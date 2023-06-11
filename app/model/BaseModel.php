@@ -4,11 +4,11 @@ namespace WebApp\Model;
 
 class BaseModel
 {
-    private $model;
-    private $db;
+    public $model;
 
     public function  __construct(){
-        $this->db = new \WebApp\Core\Database();
+        $_obj = new \WebApp\Helper\Crud();
+        $this->model = $_obj;
     }
 
     public function test(){

@@ -18,7 +18,7 @@ class Route
         unset($uri[0]); unset($uri[1]); unset($uri[2]); 
         self::$args = $uri;
 
-        return ((self::$controller))? ucwords(self::$controller).'Controller' : 'BaseController';
+        return ((self::$controller))? ucwords(self::$controller).'Controller' : '';
     }
 
     public static function noController(){
