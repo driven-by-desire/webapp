@@ -10,9 +10,8 @@ class RequestService
     public function  __construct(){
         //$t = file_get_contents("php://input");
         //print_r($t); die();
-        $this->request['_data'] = $this->getPutData();
         $this->request['header'] = $this->getServerHeader();     // set header     
-        $this->request['_data'] = $this->getPostData();     // set header     
+        $this->request['_data'] = $this->getData();     // set header     
 
         $this->getRequest();
     }
@@ -25,13 +24,25 @@ class RequestService
         return $this->request['header']['REQUEST_METHOD'];
     }
 
-    public function getPostData(){
+    public function getData(){
+        $_reqmethod = $this->getRequestMethod();
+        switch($_reqmethod){
+            case 'POST':
+                return $this->getPostData();
+            case 'PUT':
+                return $this->getPutData();
+            default:
+                return array();
+        }
+    }
+
+    protected function getPostData(){
         $_postdata = $_POST;    # future : sanitize $_POST data as per int, str
         $_data = ($this->getRequestMethod() == 'POST')? $_postdata : FALSE;
         return $_data;
     }
 
-    public function getPutData(){
+    protected function getPutData(){
         # https://bugs.php.net/bug.php?id=55815#:~:text=Basically%2C%20a%20request%20sent%20%28with%20files%20and%2For%20non-file,%24_PUT%20superglobals%20should%20be%20populated%20in%20PUT%20requests.
         # PUT : no data in $_POST and $_FILES (for files)
         # create method for Put to get form-data and files
@@ -56,7 +67,7 @@ class RequestService
         // die();
     }
     
-    public function getServerHeader(){
+    private function getServerHeader(){
 
         $header['SERVER_PROTOCOL']   = $_SERVER['SERVER_PROTOCOL']   ;
         $header['REQUEST_METHOD']    = $_SERVER['REQUEST_METHOD']    ;

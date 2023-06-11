@@ -30,7 +30,8 @@ class UserController extends BaseController
                 $_msg  = $repository->createUser($request);
                 return $response->getResponse();
             case 'PUT':
-                return 1;
+                $_msg  = $repository->updateUser($request);
+                return $response->getResponse();;
             case 'DELETE':
                 return 1;
             default:

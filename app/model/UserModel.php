@@ -25,4 +25,8 @@ class UserModel extends BaseModel
         //var_dump($_data); die();
         return $_data;
     }
+
+    public function updateUser($_data){
+        return $_data;
+    }
 }
