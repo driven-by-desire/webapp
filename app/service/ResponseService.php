@@ -8,20 +8,35 @@ class ResponseService
 
     public function  __construct(){
     
-    }
+    } 
 
-    public function getResponse($_data=''){
-        //var_dump($_data); die();
-        //$_resp = array('response_code'=>200, 'response_msg'=>'OK', 'title'=>'USER_FETCH', 'message'=>'User details fetched successfully.');
-        $_resp = $this->getHTTPresp('200');
-        if(!empty($_data)){
-            //$_resp['http'] = $this->getHTTPresp('200');
-            $_resp['data'] = $_data;
-        }
+    public function sendGetResponse($_data){
+        $_http_code = ($_data)? '200' : '204';
+        $_resp = $this->getHTTPresp($_http_code);
+        $_resp['data'] = (!empty($_data))? $_data : '';
         $this->response = (object) $_resp;
         return json_encode($this->response);
     }
- 
+    
+    /**
+     * Parameter Bool
+     * 1- created 0-failed
+     */
+    public function sendPostResponse($_res){
+        $_http_code = ($_res)? '201' : '417';
+        $_resp = $this->getHTTPresp($_http_code);
+        $this->response = (object) $_resp;
+        return json_encode($this->response);
+    }
+
+    protected function sendPutResponse($_res){
+        $_http_code = ($_res)? '200' : '204';
+    }
+
+    protected function sendDeleteResponse($_data){
+        // $_http_code = ($_data)? '201' : '';
+    }
+
     private function getHTTPresp($_code){
         $http = array(
             "100" => "Continue",

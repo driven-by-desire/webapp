@@ -16,22 +16,21 @@ class UserController extends BaseController
     }
 
     public function process(\WebApp\Service\RequestService $request){
-        //print_r($request);
-        $response = new \WebApp\Service\ResponseService();
-        //$repository = new \WebApp\Model\UserModel();
 
+        $response = new \WebApp\Service\ResponseService();
         $repository = new \WebApp\Model\UserModel();
+        
         switch($request->getRequestMethod()){
-            case 'GET':
-                //echo '26 UserController';
+            case 'GET':     // Postman check : 28ms for all listing
                 $_data  = $repository->getUsers();
-                return $response->getResponse($_data);
-            case 'POST':
-                $_msg  = $repository->createUser($request);
-                return $response->getResponse();
-            case 'PUT':
-                $_msg  = $repository->updateUser($request);
-                return $response->getResponse();;
+                return $response->sendGetResponse($_data);
+            case 'POST':    // Postman check : 36ms for single row creation
+                $_res  = $repository->createUser($request);
+                return $response->sendPostResponse($_res);
+            case 'PUT':     
+                $_res  = $repository->updateUser($request);     // updateid as csv for columns to check
+                var_dump($_res); die();
+                return $response->sendResponse($request, $_res);
             case 'DELETE':
                 return 1;
             default:
