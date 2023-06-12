@@ -36,26 +36,32 @@ class Crud
         return $result;
     }
 
-    public function updateRecord($_tablename, $_data, $_where){
+    public function updateRecord($_tablename, $_data){
+        
+        $_chkcols = explode(',', $_data['updateid']);
+        unset($_data['updateid']);
+        $_where = array();
+        foreach($_chkcols as $key=>$val){
+            $_where[$val] = $_data[$val];
+            unset($_data[$val]);
+        }
+
         $_sql  = "UPDATE ".$_tablename." SET ";
         $_sql .= implode(',', array_map(function($val1, $val2) {
-            return sprintf("%s='%s'", $val1, $val2);
+            return sprintf("%s=:%s", $val1, $val1);
         }, array_keys($_data), array_values($_data)));
-        $_sql .= "WHERE ";
+        $_sql .= " WHERE ";
         $_sql .= implode(' AND ', array_map(function($val1, $val2) {
-            return sprintf("%s='%s'", $val1, $val2);
+            return sprintf("%s=:%s", $val1, $val1);
         }, array_keys($_where), array_values($_where)));
-
-        echo $_sql; die();
-
-        $_sql .= "VALUES ( :".implode(', :', array_keys($_data))." )";
-
         $query = $this->db->prepare($_sql);
-        foreach($_data as $col => &$val){
-            $col = ":".$col;
-            $query->bindParam($col, $val);    
+        $_bind = array_merge($_data, $_where);
+        $_exec = array();
+        foreach($_bind as $col => &$val){
+            $_exec[":".$col] =$val;
         }
-        $res = $query->execute();
+
+        $res = $query->execute($_exec);
         return $res;
     }
 

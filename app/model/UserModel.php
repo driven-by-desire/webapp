@@ -28,7 +28,11 @@ class UserModel extends BaseModel
         return $_res;
     }
 
-    public function updateUser($_data){
+    public function updateUser($_request){
+        $_request = $_request->getRequest();
+        $_data = $_request['_data'];
+
+        $_res = $this->model->updateRecord($this->table, $_data);
         return $_data;
     }
 }

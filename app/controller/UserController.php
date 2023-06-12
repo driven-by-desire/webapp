@@ -29,8 +29,7 @@ class UserController extends BaseController
                 return $response->sendPostResponse($_res);
             case 'PUT':     
                 $_res  = $repository->updateUser($request);     // updateid as csv for columns to check
-                var_dump($_res); die();
-                return $response->sendResponse($request, $_res);
+                return $response->sendPutResponse($_res);
             case 'DELETE':
                 return 1;
             default:

@@ -29,11 +29,14 @@ class ResponseService
         return json_encode($this->response);
     }
 
-    protected function sendPutResponse($_res){
+    public function sendPutResponse($_res){
         $_http_code = ($_res)? '200' : '204';
+        $_resp = $this->getHTTPresp($_http_code);
+        $this->response = (object) $_resp;
+        return json_encode($this->response);
     }
 
-    protected function sendDeleteResponse($_data){
+    public function sendDeleteResponse($_data){
         // $_http_code = ($_data)? '201' : '';
     }
 
